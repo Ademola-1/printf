@@ -14,7 +14,7 @@ int _printf(const char *format, ...)
 	char *str;
 	char c;
 	int str_len;
-
+	int argsNum;
 	va_list argsList;
 
 	if (format == NULL)
@@ -55,12 +55,11 @@ int _printf(const char *format, ...)
 				write(1, str, str_len);
 				printChar = printChar + str_len;
 			}
-			else if (*format == 'd')
+			else if (*format == 'd' || *format == 'i')
 			{
-				int decimal = va_arg(argsList, int);
-
-				write(1, &decimal, 4);
-				printChar++;
+				argsNum = va_arg(argsList, int);
+				printf("%d", argsNum);
+				printChar += snprintf(NULL, 0, "%d", argsNum);
 			}
 		}
 		format++;
